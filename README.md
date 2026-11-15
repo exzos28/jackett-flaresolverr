@@ -9,7 +9,7 @@ Cloudflare, at a short address (Caddy in front of Jackett).
 ./start.sh
 ```
 
-It starts both containers, waits for Jackett and prints its addresses and API key:
+It starts the containers, waits for Jackett and prints its addresses and API key:
 
 ```
 Jackett:  http://localhost:9117
