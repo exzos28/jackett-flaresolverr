@@ -1,0 +1,24 @@
+# Jackett with FlareSolverr for the indexers behind Cloudflare.
+# Only Jackett is published (http://localhost:9117); FlareSolverr is reachable from Jackett alone,
+# on the compose network, at http://flaresolverr:8191.
+services:
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    environment:
+      - TZ=${TZ:-Europe/Warsaw}
+      - AUTO_UPDATE=true
+    volumes:
+      - ./config:/config
+    ports:
+      - "${JACKETT_PORT:-9117}:9117"
+    depends_on:
+      - flaresolverr
+    restart: unless-stopped
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    environment:
+      - TZ=${TZ:-Europe/Warsaw}
+      # warning: info would write request bodies, logins and passwords included, to the log
+      - LOG_LEVEL=warning
+    restart: unless-stopped
