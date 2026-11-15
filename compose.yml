@@ -7,8 +7,12 @@ services:
     environment:
       - TZ=${TZ:-Europe/Warsaw}
       - AUTO_UPDATE=true
+      # FlareSolverr in Jackett's settings, written by init/flaresolverr.sh before each start
+      - FLARESOLVERR_URL=http://flaresolverr:8191
+      - FLARESOLVERR_TIMEOUT=120000
     volumes:
       - ./config:/config
+      - ./init:/custom-cont-init.d:ro
     ports:
       - "${JACKETT_PORT:-9117}:9117"
     depends_on:

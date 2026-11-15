@@ -11,10 +11,12 @@ docker compose up -d
 
 Open http://localhost:9117 and, once:
 
-1. In **Jackett Configuration**, set **FlareSolverr API URL** to `http://flaresolverr:8191` and
-   **FlareSolverr Max Timeout** to `120000`, then **Apply server settings**.
-2. **Add indexer** and sign in to yours.
-3. Copy the **API Key** at the top of the page.
+1. **Add indexer** and sign in to yours.
+2. Copy the **API Key** at the top of the page.
+
+FlareSolverr is already set in Jackett: `init/flaresolverr.sh` writes its address and timeout
+(`FLARESOLVERR_URL`, `FLARESOLVERR_TIMEOUT` in `compose.yml`) into Jackett's settings before each
+start, so a change to them in Jackett's page lasts until the next restart.
 
 In reel, the search source is
 `http://<this computer's IP>:9117/api/v2.0/indexers/all/results/torznab/api` with that key.
