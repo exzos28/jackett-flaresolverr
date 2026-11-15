@@ -1,7 +1,7 @@
-# reel-jackett
+# Jackett + FlareSolverr
 
-Jackett and FlareSolverr in Docker: a search source (Torznab) for reel, including indexers
-behind Cloudflare.
+Jackett and FlareSolverr in Docker: a Torznab search source, including indexers behind
+Cloudflare.
 
 ## Run
 
@@ -18,8 +18,8 @@ FlareSolverr is already set in Jackett: `init/flaresolverr.sh` writes its addres
 (`FLARESOLVERR_URL`, `FLARESOLVERR_TIMEOUT` in `compose.yml`) into Jackett's settings before each
 start, so a change to them in Jackett's page lasts until the next restart.
 
-In reel, the search source is
-`http://<this computer's IP>:9117/api/v2.0/indexers/all/results/torznab/api` with that key.
+The Torznab address for apps is
+`http://<this computer's IP>:9117/api/v2.0/indexers/all/results/torznab/api`, with that key.
 
 Settings and accounts stay in `./config` (not committed). Another port: `JACKETT_PORT=9118 docker compose up -d`.
 
