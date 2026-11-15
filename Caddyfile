@@ -1,0 +1,6 @@
+# The short Torznab address: /torznab is Jackett's all-indexers endpoint, the query (apikey, t, q…)
+# goes on as it came. Everything else (the web page, the API) goes to Jackett as it is.
+:80 {
+	rewrite /torznab /api/v2.0/indexers/all/results/torznab/api?{query}
+	reverse_proxy jackett:9117
+}

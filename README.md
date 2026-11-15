@@ -1,7 +1,7 @@
 # Jackett + FlareSolverr
 
 Jackett and FlareSolverr in Docker: a Torznab search source, including indexers behind
-Cloudflare.
+Cloudflare, at a short address (Caddy in front of Jackett).
 
 ## Run
 
@@ -13,9 +13,12 @@ It starts both containers, waits for Jackett and prints its addresses and API ke
 
 ```
 Jackett:  http://localhost:9117
-Torznab:  http://192.168.1.20:9117/api/v2.0/indexers/all/results/torznab/api
+Torznab:  http://192.168.1.20:9117/torznab
 API key:  …
 ```
+
+`/torznab` is Jackett's all-indexers Torznab endpoint
+(`/api/v2.0/indexers/all/results/torznab/api`, which works too); apps send the key with it.
 
 Open the Jackett address and, once:
 

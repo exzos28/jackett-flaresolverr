@@ -1,6 +1,7 @@
-# Jackett with FlareSolverr for the indexers behind Cloudflare.
-# Only Jackett is published (http://localhost:9117); FlareSolverr is reachable from Jackett alone,
-# on the compose network, at http://flaresolverr:8191.
+# Jackett with FlareSolverr for the indexers behind Cloudflare, behind Caddy for a short address.
+# Only Caddy is published (http://localhost:9117): /torznab is Jackett's all-indexers Torznab
+# endpoint, everything else is Jackett as it is. FlareSolverr is reachable from Jackett alone, on
+# the compose network, at http://flaresolverr:8191.
 services:
   jackett:
     image: lscr.io/linuxserver/jackett:latest
@@ -13,10 +14,18 @@ services:
     volumes:
       - ./config:/config
       - ./init:/custom-cont-init.d:ro
-    ports:
-      - "${JACKETT_PORT:-9117}:9117"
     depends_on:
       - flaresolverr
+    restart: unless-stopped
+
+  proxy:
+    image: caddy:2-alpine
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    ports:
+      - "${JACKETT_PORT:-9117}:80"
+    depends_on:
+      - jackett
     restart: unless-stopped
 
   flaresolverr:
